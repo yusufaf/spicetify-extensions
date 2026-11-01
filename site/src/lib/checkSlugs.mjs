@@ -6,7 +6,7 @@ const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const BUILT_IN = ['404', 'pagefind']
 
 /**
- * @param {{ extensions: { repo: string, slug: string }[], guidesDir: string, topLevelPages: string[] }} params
+ * @param {{ extensions: { slug: string }[], guidesDir: string, topLevelPages: string[] }} params
  *   `topLevelPages` are the file names in src/content/docs (e.g. `getting-started.md`).
  * @returns {string[]} One message per bad slug; empty when all are fine.
  */
@@ -17,9 +17,9 @@ export function checkSlugs({ extensions, guidesDir, topLevelPages }) {
         ...topLevelPages.map((name) => name.replace(/\.[^.]+$/, '').toLowerCase()),
     ])
     const problems = []
-    for (const { repo, slug } of extensions) {
-        if (!SLUG.test(slug)) problems.push(`${repo}: slug '${slug}' must be lowercase letters, digits and dashes`)
-        else if (reserved.has(slug)) problems.push(`${repo}: slug '${slug}' is reserved`)
+    for (const { slug } of extensions) {
+        if (!SLUG.test(slug)) problems.push(`'${slug}' must be lowercase letters, digits and dashes`)
+        else if (reserved.has(slug)) problems.push(`'${slug}' is reserved`)
     }
     return problems
 }

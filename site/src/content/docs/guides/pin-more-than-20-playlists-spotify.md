@@ -18,7 +18,7 @@ Where they stop short:
 
 ## What Enhanced Pins adds
 
-![The Enhanced Pins section at the top of the Spotify sidebar, showing six of ten pinned playlists and albums](https://raw.githubusercontent.com/yusufaf/spicetify-enhanced-pins/HEAD/preview.png)
+![The Enhanced Pins section at the top of the Spotify sidebar, showing six of ten pinned playlists and albums](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/HEAD/extensions/enhanced-pins/preview.png)
 
 Enhanced Pins adds a separate section at the top of the desktop app's left sidebar:
 

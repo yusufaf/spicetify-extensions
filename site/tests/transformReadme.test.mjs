@@ -2,9 +2,9 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { transformReadme } from '../src/lib/transformReadme.mjs'
 
-const RAW = 'https://raw.githubusercontent.com/yusufaf/spicetify-rym/HEAD'
-const BLOB = 'https://github.com/yusufaf/spicetify-rym/blob/HEAD'
-const run = (markdown) => transformReadme(markdown, { repo: 'spicetify-rym' })
+const RAW = 'https://raw.githubusercontent.com/yusufaf/spicetify-extensions/HEAD/extensions/rym'
+const BLOB = 'https://github.com/yusufaf/spicetify-extensions/blob/HEAD/extensions/rym'
+const run = (markdown) => transformReadme(markdown, { dir: 'extensions/rym' })
 const fixture = (name) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8')
 
 describe('leading H1', () => {
@@ -50,6 +50,12 @@ describe('relative paths', () => {
 
     it('rewrites relative links to github.com blob URLs', () => {
         expect(run('See [LICENSE](LICENSE).')).toBe(`See [LICENSE](${BLOB}/LICENSE).`)
+    })
+
+    it('resolves ../ against the extension folder, so links can reach the repo root', () => {
+        expect(run('[LICENSE](../../LICENSE)')).toBe(
+            '[LICENSE](https://github.com/yusufaf/spicetify-extensions/blob/HEAD/LICENSE)',
+        )
     })
 
     it('normalizes a leading ./', () => {

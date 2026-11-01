@@ -1,33 +1,29 @@
 #!/usr/bin/env node
-// Pulls each extension repo's manifest, README and changelog from GitHub and
+// Reads each extension's manifest entry, README and changelog from this monorepo and
 // writes them as pages under src/content/docs/<slug>/, plus a JSON summary the
 // landing-page shelf reads. Runs as `prebuild`; every output is gitignored.
 //
-// Reads from the repo's default branch (`HEAD`), the same ref Spicetify
-// Marketplace reads, so the site and the Marketplace listing never disagree.
-// A missing manifest or README fails the build on purpose: shipping a site with
+// The site builds from the same commit Marketplace serves, so the two never disagree.
+// A missing manifest entry or README fails the build on purpose: shipping a site with
 // a silently empty extension page is worse than a red deploy.
 
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { EXTENSIONS, GITHUB_OWNER, GUIDES_DIR } from '../src/data/extensions.mjs'
+import { EXTENSIONS, GITHUB_OWNER, GITHUB_REPO, GUIDES_DIR } from '../src/data/extensions.mjs'
 import { checkSlugs } from '../src/lib/checkSlugs.mjs'
 import { imageSize, ogImageHead } from '../src/lib/ogImage.mjs'
 import { transformReadme } from '../src/lib/transformReadme.mjs'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
+const REPO_ROOT = path.join(ROOT, '..')
 const DOCS_DIR = path.join(ROOT, 'src', 'content', 'docs')
 const SUMMARY_FILE = path.join(ROOT, 'src', 'data', 'extensions.generated.json')
 
-const rawUrl = (repo, file) => `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/HEAD/${file}`
-
-async function fetchText(url, { optional = false } = {}) {
-    const res = await fetch(url)
-    if (res.status === 404 && optional) return null
-    if (!res.ok) throw new Error(`${url} -> ${res.status} ${res.statusText}`)
-    return res.text()
-}
+const rawUrl = (file) => `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/HEAD/${file}`
+const readRepoFile = (file) => readFile(path.join(REPO_ROOT, file), 'utf8')
+const readOptional = async (file) => (existsSync(path.join(REPO_ROOT, file)) ? readRepoFile(file) : null)
 
 // JSON strings are valid YAML scalars, so this sidesteps quoting bugs in titles
 // and descriptions that contain colons or quotes.
@@ -36,38 +32,31 @@ const frontmatter = (fields) =>
         .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
         .join('\n')}\n---\n\n`
 
-function absolutize(repo, file) {
-    if (!file) return null
-    return /^https?:\/\//.test(file) ? file : rawUrl(repo, file.replace(/^\.?\//, ''))
-}
-
 // Dimensions decide whether a preview is big enough to be the page's og:image. A
-// preview that can't be fetched only costs the page its social image, not the build.
-async function fetchImageSize(url) {
-    if (!url) return null
+// preview that can't be read only costs the page its social image, not the build.
+async function previewSize(file) {
+    if (!file || /^https?:\/\//.test(file)) return null
     try {
-        const res = await fetch(url)
-        return res.ok ? imageSize(new Uint8Array(await res.arrayBuffer())) : null
+        return imageSize(new Uint8Array(await readFile(path.join(REPO_ROOT, file))))
     } catch {
         return null
     }
 }
 
-async function syncExtension({ repo, slug, order }) {
-    const [manifestText, readme, changelog, releaseManifestText] = await Promise.all([
-        fetchText(rawUrl(repo, 'manifest.json')),
-        fetchText(rawUrl(repo, 'README.md')),
-        fetchText(rawUrl(repo, 'CHANGELOG.md'), { optional: true }),
-        fetchText(rawUrl(repo, '.release-please-manifest.json'), { optional: true }),
-    ])
+const manifests = JSON.parse(await readRepoFile('manifest.json'))
+const releaseVersions = JSON.parse((await readOptional('.release-please-manifest.json')) ?? '{}')
 
-    // Marketplace allows an array manifest; these repos each hold exactly one entry.
-    const parsed = JSON.parse(manifestText)
-    const manifest = Array.isArray(parsed) ? parsed[0] : parsed
-    const version = releaseManifestText ? (JSON.parse(releaseManifestText)['.'] ?? null) : null
-    const editUrl = `https://github.com/${GITHUB_OWNER}/${repo}/edit/HEAD/README.md`
-    const preview = absolutize(repo, manifest.preview)
-    const head = ogImageHead(preview, await fetchImageSize(preview))
+async function syncExtension({ slug, order }) {
+    const dir = `extensions/${slug}`
+    // Marketplace paths in the root manifest are relative to the repo root.
+    const manifest = manifests.find((entry) => entry.main?.startsWith(`${dir}/`))
+    if (!manifest) throw new Error(`no entry in manifest.json with main under ${dir}/`)
+    const [readme, changelog] = await Promise.all([readRepoFile(`${dir}/README.md`), readOptional(`${dir}/CHANGELOG.md`)])
+
+    const version = releaseVersions[dir] ?? null
+    const editUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/edit/HEAD/${dir}/README.md`
+    const preview = manifest.preview ? (/^https?:\/\//.test(manifest.preview) ? manifest.preview : rawUrl(manifest.preview)) : null
+    const head = ogImageHead(preview, await previewSize(manifest.preview))
 
     const outDir = path.join(DOCS_DIR, slug)
     await rm(outDir, { force: true, recursive: true })
@@ -81,7 +70,7 @@ async function syncExtension({ repo, slug, order }) {
             head,
             sidebar: { label: 'Overview', order: 0 },
             title: manifest.name,
-        }) + transformReadme(readme, { repo }),
+        }) + transformReadme(readme, { dir }),
     )
 
     if (changelog) {
@@ -93,7 +82,7 @@ async function syncExtension({ repo, slug, order }) {
                 head,
                 sidebar: { label: 'Changelog', order: 1 },
                 title: `${manifest.name} changelog`,
-            }) + transformReadme(changelog, { repo }),
+            }) + transformReadme(changelog, { dir }),
         )
     }
 
@@ -102,8 +91,7 @@ async function syncExtension({ repo, slug, order }) {
         name: manifest.name,
         order,
         preview,
-        repo,
-        repoUrl: `https://github.com/${GITHUB_OWNER}/${repo}`,
+        repoUrl: `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/tree/HEAD/${dir}`,
         slug,
         version,
     }
@@ -119,6 +107,12 @@ const slugProblems = checkSlugs({
 })
 if (slugProblems.length > 0) throw new Error(`Bad extension slugs:\n${slugProblems.join('\n')}`)
 
+const listed = new Set(EXTENSIONS.map(({ slug }) => `extensions/${slug}/`))
+const unlisted = manifests.filter((entry) => ![...listed].some((dir) => entry.main?.startsWith(dir)))
+if (unlisted.length > 0) {
+    throw new Error(`manifest.json entries missing from src/data/extensions.mjs: ${unlisted.map((e) => e.main).join(', ')}`)
+}
+
 const results = await Promise.allSettled(EXTENSIONS.map(syncExtension))
 const failures = results
     .map((result, index) => ({ extension: EXTENSIONS[index], result }))
@@ -126,7 +120,7 @@ const failures = results
 
 if (failures.length > 0) {
     for (const { extension, result } of failures) {
-        console.error(`[sync-extensions] ${extension.repo}: ${result.reason.message}`)
+        console.error(`[sync-extensions] ${extension.slug}: ${result.reason.message}`)
     }
     process.exit(1)
 }

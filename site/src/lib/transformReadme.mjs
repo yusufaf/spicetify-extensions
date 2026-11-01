@@ -1,4 +1,4 @@
-import { GITHUB_OWNER } from '../data/extensions.mjs'
+import { GITHUB_OWNER, GITHUB_REPO } from '../data/extensions.mjs'
 
 const SKIP_BLOCK = /<!-- site:skip-start -->[\s\S]*?<!-- site:skip-end -->\n?/g
 const FENCE = /^\s*(```|~~~)/
@@ -13,15 +13,16 @@ const ABSOLUTE = /^(?:[a-z][a-z0-9+.-]*:|#|\/\/)/i
  * Fenced code is left untouched.
  *
  * @param {string} markdown - Raw README.md or CHANGELOG.md contents.
- * @param {{ repo: string }} options - `repo` is the GitHub repo name under
- *   `yusufaf`, used to build absolute URLs for relative paths.
+ * @param {{ dir: string }} options - `dir` is the extension's folder in the
+ *   monorepo (e.g. `extensions/rym`); relative paths resolve against it, so
+ *   `../../LICENSE` reaches the repo root.
  * @returns {string} Site-ready Markdown.
  */
-export function transformReadme(markdown, { repo }) {
-    const raw = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/HEAD/`
-    const blob = `https://github.com/${GITHUB_OWNER}/${repo}/blob/HEAD/`
+export function transformReadme(markdown, { dir }) {
+    const raw = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/HEAD/${dir}/`
+    const blob = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/blob/HEAD/${dir}/`
     const absolutize = (base) => (match, open, target) =>
-        ABSOLUTE.test(target) ? match : `${open}${base}${target.replace(/^\.?\//, '')}`
+        ABSOLUTE.test(target) ? match : `${open}${new URL(target, base).href}`
 
     let inFence = false
     let seenContent = false

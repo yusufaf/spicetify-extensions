@@ -6,7 +6,7 @@ import { markAllCurrent } from '../src/lib/markAllCurrent.mjs'
 const TOP_LEVEL = ['developers.md', 'getting-started.md', 'index.mdx', 'troubleshooting.md']
 const check = (...slugs) =>
     checkSlugs({
-        extensions: slugs.map((slug) => ({ repo: `repo-${slug}`, slug })),
+        extensions: slugs.map((slug) => ({ slug })),
         guidesDir: GUIDES_DIR,
         topLevelPages: TOP_LEVEL,
     })
@@ -18,7 +18,7 @@ describe('checkSlugs', () => {
 
     it('rejects slugs the sync could use to delete or shadow something else', () => {
         for (const slug of ['guides', 'troubleshooting', 'index', '404', 'pagefind']) {
-            expect(check(slug), slug).toEqual([`repo-${slug}: slug '${slug}' is reserved`])
+            expect(check(slug), slug).toEqual([`'${slug}' is reserved`])
         }
     })
 
