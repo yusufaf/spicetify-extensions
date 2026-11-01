@@ -1,0 +1,62 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.1.0](https://github.com/yusufaf/spicetify-album-length/compare/v1.0.3...v1.1.0) (2026-10-24)
+
+
+### Features
+
+* add version and GitHub issue link to settings modal footer ([667721e](https://github.com/yusufaf/spicetify-album-length/commit/667721e4806944659d51da90838b8667efb01caf))
+* customizable badge colors and length thresholds ([#4](https://github.com/yusufaf/spicetify-album-length/issues/4)) ([356b306](https://github.com/yusufaf/spicetify-album-length/commit/356b306752920144b6a3b9e55fa8b677c1402d58))
+* expose a health check for spicetify-compat ([#11](https://github.com/yusufaf/spicetify-album-length/issues/11)) ([c415336](https://github.com/yusufaf/spicetify-album-length/commit/c41533697632996c6d5200ebf3c43fce93ad3526))
+* link the docs from settings and spell out Marketplace install ([#7](https://github.com/yusufaf/spicetify-album-length/issues/7)) ([f9f2c98](https://github.com/yusufaf/spicetify-album-length/commit/f9f2c98d43c8acb69b088f7eef5fd6df748e037e))
+
+
+### Bug Fixes
+
+* enlarge Album Length settings modal ([219a95c](https://github.com/yusufaf/spicetify-album-length/commit/219a95c5d9b3bcdd2b6e66fe7b933878debbcdf0))
+* find track rows by ARIA structure on Spotify 1.3.3+ ([#10](https://github.com/yusufaf/spicetify-album-length/issues/10)) ([47430f1](https://github.com/yusufaf/spicetify-album-length/commit/47430f1135aa93e7f93b4178d29d57af8c631806)), closes [#8](https://github.com/yusufaf/spicetify-album-length/issues/8)
+* render badges again on Spotify 1.3.3+ ([#12](https://github.com/yusufaf/spicetify-album-length/issues/12)) ([1ba21b3](https://github.com/yusufaf/spicetify-album-length/commit/1ba21b3cbc427f1f672c33c4a0406c263cbd7ab0))
+* stack duration-column badge below song length ([b41d92c](https://github.com/yusufaf/spicetify-album-length/commit/b41d92c37b2f8dd79c4a30ee43ee7904ab1e98db))
+
+## [1.0.3](https://github.com/yusufaf/spicetify-album-length/compare/v1.0.2...v1.0.3) (2026-06-13)
+
+
+### Bug Fixes
+
+* distinct color-coding palette and stacked duration placement ([300e25f](https://github.com/yusufaf/spicetify-album-length/commit/300e25f07d89b0b66e7f6a914e0e5cd902ae634e))
+
+## [1.0.2] - 2026-05-16
+
+### Fixed
+- Duplicate album-length badges (`· 41m · 41m`) could still appear during fast scroll despite the 1.0.1 row-position dedup. The exact race wasn't pinned down — diagnostic logging showed the layered defenses never tripped once added — but the layered approach empirically stopped reproductions. Three layers added:
+  - **Proximity row dedup in `injectAll`**: rows are sorted by `getBoundingClientRect().top` and any row within 4px of the previous is skipped, catching sub-pixel sibling overlay rows the strict-equality check in 1.0.1 missed.
+  - **Append-time visual-position guard in `appendInlineBadge`**: before appending, scans every existing badge in the document and bails if one already sits within 8px vertical / 240px horizontal of the target cell.
+  - **Post-injection janitor `sweepDuplicateBadges`**: runs 250ms after each `injectAll` and removes any badge whose visual position overlaps an earlier one — a final safety net if two injections race past the per-append guards.
+
+## [1.0.1] - 2026-05-03
+
+### Fixed
+- Duplicate album-length badges appearing during fast scrolling. Spotify renders sibling `.main-trackList-trackListRow` elements at the same DOM level per visual track (a content row plus an interaction overlay); `querySelectorAll` found both and injected a badge into each. `injectAll` now deduplicates rows by vertical pixel position (`getBoundingClientRect().top`), skipping any row whose position was already processed.
+- Additional defensive layers added: in-flight `alPending` guard prevents concurrent async re-injections into the same link; `document.contains` check abandons injections for elements detached by Spotify's virtualizer mid-fetch; row-scoped badge `querySelector` in `appendInlineBadge` as a last resort; `window.__albumLengthActive` flag prevents re-execution if Spicetify injects the script more than once per session.
+
+## [1.0.0] - 2026-04-25
+
+### Added
+- Inline album-length badge appended to the existing **Album** cell in tracklists (e.g. `Currents · 51m`)
+- Per-surface toggles for **Playlists**, **Liked Songs**, and the **Queue**
+- Format options: `Short` (`1h 23m`), `Colon` (`1:23:00`), `Long` (`1 hour 23 minutes`), and `Auto` (hybrid)
+- Tooltip display mode as an alternative to the inline badge
+- Auto-suppression of the badge on singles (when the track *is* the album)
+- Indefinite caching of album durations in `Spicetify.LocalStorage` (album lengths don't change)
+- Settings modal accessible via the Spotify profile menu ("Album Length")
+- Manual cache clear from the settings modal
+- GraphQL `getAlbum` fallback when the legacy Cosmos endpoint (`wg://album/v1/album-app/album/<id>/desktop`) is unavailable on newer Spotify builds
+
+[1.0.2]: https://github.com/yusufaf/spicetify-album-length/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/yusufaf/spicetify-album-length/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/yusufaf/spicetify-album-length/releases/tag/v1.0.0

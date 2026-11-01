@@ -17,18 +17,24 @@ jobs:
   links:
     name: Check links
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
+        with:
+          package_json_file: site/package.json
 
       - name: Set node LTS
         uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
 
       - name: Install deps
         run: pnpm install --frozen-lockfile
@@ -46,6 +52,6 @@ jobs:
             --retry-wait-time 10
             --timeout 30
             --accept 200,204,206
-            --root-dir ${{ github.workspace }}/dist
-            './dist/**/*.html'
+            --root-dir ${{ github.workspace }}/site/dist
+            './site/dist/**/*.html'
           fail: true

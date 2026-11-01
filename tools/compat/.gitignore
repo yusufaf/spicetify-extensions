@@ -1,0 +1,4 @@
+# Local config with personal URIs
+compat.local.json
+# Written by the compat-watch workflow; it lives on the compat-state branch
+state/watch.json

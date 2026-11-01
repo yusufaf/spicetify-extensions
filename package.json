@@ -1,35 +1,16 @@
 {
-  "name": "spicetify-site",
+  "name": "spicetify-extensions",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "description": "Docs hub for yusufaf's Spicetify extensions, published at spicetify.yusufaf.dev.",
-  "license": "MIT",
   "packageManager": "pnpm@10.34.5",
   "scripts": {
-    "sync": "node scripts/sync-extensions.mjs",
-    "prebuild": "node scripts/sync-extensions.mjs",
-    "predev": "node scripts/sync-extensions.mjs",
-    "build": "astro build",
-    "dev": "astro dev",
-    "preview": "astro preview",
-    "typecheck": "astro check",
-    "test": "vitest run",
+    "test": "node tools/test-extensions.mjs && pnpm -C tools/compat test",
+    "compat": "pnpm -C tools/compat compat",
+    "site": "pnpm -C site",
     "prepare": "husky"
   },
-  "dependencies": {
-    "@astrojs/starlight": "^0.42.5",
-    "@fontsource-variable/figtree": "^5.3.0",
-    "astro": "^7.3.5",
-    "starlight-llms-txt": "^0.12.0",
-    "starlight-page-actions": "^0.7.1"
-  },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-conventional": "^21.2.3",
-    "husky": "^9.1.7",
-    "typescript": "^6.0.3",
-    "vitest": "^5.0.3"
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "husky": "^9.1.7"
   }
 }

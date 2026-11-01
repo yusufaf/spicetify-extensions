@@ -1,0 +1,50 @@
+name: compat-watch
+
+# Notices new Spotify (Windows GA) and Spicetify releases and keeps one issue per combination.
+# State lives on the compat-state branch so the 6-hourly commits stay out of main's history
+# and don't start release or docs runs.
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: compat-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Check out the state branch
+        run: |
+          if git fetch --depth=1 origin compat-state; then
+            git worktree add "$RUNNER_TEMP/state" FETCH_HEAD
+            git -C "$RUNNER_TEMP/state" switch -c compat-state
+            cp "$RUNNER_TEMP/state/watch.json" tools/compat/state/watch.json
+          else
+            git worktree add --orphan -b compat-state "$RUNNER_TEMP/state"
+          fi
+      - name: Check for releases
+        working-directory: tools/compat
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node src/watch.mjs
+      - name: Commit state
+        working-directory: ${{ runner.temp }}/state
+        run: |
+          cp "$GITHUB_WORKSPACE/tools/compat/state/watch.json" watch.json
+          [ -z "$(git status --porcelain watch.json)" ] && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add watch.json
+          git commit -m "chore(compat): record latest Spotify and Spicetify releases"
+          git push origin compat-state
