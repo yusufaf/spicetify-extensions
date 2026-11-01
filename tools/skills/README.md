@@ -1,4 +1,4 @@
-# spicetify-agent-skills
+# Agent skills
 
 Agent skills for developing [Spicetify](https://spicetify.app) extensions — for use with
 Claude Code and other AI coding agents that support the
@@ -48,12 +48,15 @@ and `refresh` shows the theme.js diff before a pin moves. Bundles `matrix.mjs` a
 Clone into your agent's skills directory:
 
 ```bash
-git clone https://github.com/yusufaf/spicetify-agent-skills
-cp -r spicetify-agent-skills/skills/* ~/.claude/skills/
+git clone https://github.com/yusufaf/spicetify-extensions
+cp -r spicetify-extensions/tools/skills/skills/* ~/.claude/skills/
 ```
 
-Then copy `extensions.example.json` to `extensions.json` and map your repos to the extension
-filenames Spotify loads.
+Or symlink each skill folder instead of copying, so updates to this repo reach your agent.
+
+For extensions in their own repos, copy `extensions.example.json` to `extensions.json` and map
+your repos to the extension filenames Spotify loads. In a repo with an array `manifest.json` at
+its root (like this one), each entry's `main` already gives that mapping.
 
 Setup beyond that — the `--remote-debugging-port` launch flag and the symlinks that make hot
 reload work — is documented in the `spicetify-live-test` skill itself.

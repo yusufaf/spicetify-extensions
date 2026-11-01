@@ -73,6 +73,10 @@ repo to the extension filename Spotify loads:
 
 The mapping matters because the repo directory name and the bundle filename often differ.
 
+A repo that holds several extensions with an array `manifest.json` at its root needs no
+mapping: each entry's `main` (e.g. `extensions/rym/rym-integration.js`) is the repo file, and its
+base name is the filename Spotify loads.
+
 ## The loop
 
 1. Confirm the port: `curl http://127.0.0.1:9222/json/version`. Refused → Spotify isn't
