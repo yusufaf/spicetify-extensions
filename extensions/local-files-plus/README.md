@@ -52,7 +52,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`local-files-plus.js`](https://raw.githubusercontent.com/yusufaf/spicetify-local-files-plus/main/local-files-plus.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`local-files-plus.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/local-files-plus/local-files-plus.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:

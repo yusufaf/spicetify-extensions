@@ -8,12 +8,7 @@ A single-file Spicetify extension (`listening-list.js`, ~1750 lines, no build st
 
 ## Commands
 
-```bash
-pnpm test          # node --check listening-list.js — syntax gate, the only automated test
-pnpm install       # installs husky hooks via `prepare`
-```
-
-Husky runs `pnpm test` on pre-commit and `commitlint` (config-conventional) on commit-msg. Commit messages **must** be Conventional Commits — release-please parses them to cut releases.
+Run from the repo root: `pnpm test` (syntax-checks every extension, including `node --check listening-list.js`; this extension has no unit tests). Commits and releases: see the repo-root CLAUDE.md.
 
 ### Testing changes in the real client
 
@@ -64,5 +59,5 @@ Read the `//#region` markers — they are the file's table of contents (Type Def
 - Console output is prefixed `[Listening List]`. `console.warn` for recoverable degradation (a playlist that wouldn't read, forward-incompatible schema); `console.error` for failures that lost data or state (parse/save failures, listener exceptions).
 - Styles are injected `<style>` tags (`LL_BASE_CSS` under `ll-main-styles`, `LL_MODAL_CSS` for the modal). Theme colors come from `--spice-*` CSS vars, so changes must be checked against both light and dark themes.
 - Bumping either `LL_DATA_SCHEMA_VERSION` or `LL_CONFIG_SCHEMA_VERSION` requires a matching migration branch in `llMigrateData` / `llMigrateConfig`.
-- Version is owned by release-please (`release-please-config.json`) — don't bump `package.json` by hand.
-- `manifest.json` is the Spicetify Marketplace descriptor; `preview` must point at a file that actually exists in the repo.
+- Version is owned by release-please at the repo root — don't bump it by hand. It updates the `x-release-please` version block in `listening-list.js` and `CHANGELOG.md`.
+- This extension's Marketplace entry is in the repo-root `manifest.json`; its `preview` must point at a file that actually exists.

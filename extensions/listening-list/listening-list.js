@@ -112,7 +112,7 @@ const LL_VERSION = '1.1.0';
 // x-release-please-end-version
 
 /** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-const LL_GITHUB_REPO = 'yusufaf/spicetify-listening-list';
+const LL_ISSUE_URL = 'https://github.com/yusufaf/spicetify-extensions/issues/new?template=listening-list.yml';
 
 const LL_HUB_URL = 'https://spicetify.yusufaf.dev/';
 const LL_DOCS_URL = `${LL_HUB_URL}listening-list/`;
@@ -1198,7 +1198,7 @@ function llOpenModal(tab) {
     <div class="ll-modal-footer-links">
       <a href="${LL_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="Listening List documentation">Docs</a>
       <a href="${LL_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-      <a class="ll-modal-github-link" href="https://github.com/${LL_GITHUB_REPO}/issues/new" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+      <a class="ll-modal-github-link" href="${LL_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
         <svg viewBox="0 0 16 16" class="ll-modal-github-icon" aria-hidden="true"><path d="${LL_GITHUB_SVG_PATH}"/></svg>
       </a>
     </div>

@@ -62,7 +62,7 @@ const RYM_VERSION = '1.2.0';
 // x-release-please-end-version
 
 /** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-const RYM_GITHUB_REPO = 'yusufaf/spicetify-rym';
+const RYM_ISSUE_URL = 'https://github.com/yusufaf/spicetify-extensions/issues/new?template=rym.yml';
 
 const RYM_HUB_URL = 'https://spicetify.yusufaf.dev/';
 const RYM_DOCS_URL = `${RYM_HUB_URL}rym/`;
@@ -654,7 +654,7 @@ function showCustomModal(title, contentElement) {
     <div class="rym-modal-footer-links">
       <a href="${RYM_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="RateYourMusic Integration documentation">Docs</a>
       <a href="${RYM_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-      <a class="rym-modal-github-link" href="https://github.com/${RYM_GITHUB_REPO}/issues/new" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+      <a class="rym-modal-github-link" href="${RYM_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
         <svg viewBox="0 0 16 16" class="rym-modal-github-icon" aria-hidden="true"><path d="${GITHUB_SVG_PATH}"/></svg>
       </a>
     </div>
@@ -1757,7 +1757,7 @@ function initializeExtension() {
 
 /**
  * Exposes the extension's state to spicetify-compat's `check`
- * (https://github.com/yusufaf/spicetify-compat#health-hook-contract).
+ * (https://github.com/yusufaf/spicetify-extensions/tree/main/tools/compat#health-hook-contract).
  * The card only exists while the Now Playing panel is open on an album track,
  * so the anchors are 0 on any route when the sidebar is closed or on Queue.
  * @returns {void}

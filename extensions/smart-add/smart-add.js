@@ -1366,7 +1366,7 @@ function saReady() {
 
 /**
  * Exposes the extension's state to spicetify-compat's `check`
- * (https://github.com/yusufaf/spicetify-compat#health-hook-contract).
+ * (https://github.com/yusufaf/spicetify-extensions/tree/main/tools/compat#health-hook-contract).
  * Suggestions only exist inside an open Add to playlist modal, so both anchors
  * are 0 on every route otherwise.
  */

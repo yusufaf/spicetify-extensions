@@ -27,7 +27,7 @@
   // x-release-please-end-version
 
   /** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-  const EF_GITHUB_REPO = "yusufaf/spicetify-enhanced-folders";
+  const EF_ISSUE_URL = "https://github.com/yusufaf/spicetify-extensions/issues/new?template=enhanced-folders.yml";
 
   const EF_HUB_URL = "https://spicetify.yusufaf.dev/";
   const EF_DOCS_URL = `${EF_HUB_URL}enhanced-folders/`;
@@ -540,7 +540,7 @@
         <div class="ef-settings-footer-links">
           <a href="${EF_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="Enhanced Folders documentation">Docs</a>
           <a href="${EF_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-          <a class="ef-settings-github-link" href="https://github.com/${EF_GITHUB_REPO}/issues/new" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+          <a class="ef-settings-github-link" href="${EF_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
             ${GITHUB_SVG}
           </a>
         </div>

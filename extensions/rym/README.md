@@ -50,7 +50,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`rym-integration.js`](https://raw.githubusercontent.com/yusufaf/spicetify-rym/main/rym-integration.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`rym-integration.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/rym/rym-integration.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -162,7 +162,7 @@ Contributions welcome! Areas for improvement:
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](../../LICENSE) for details.
 
 ## Acknowledgments
 

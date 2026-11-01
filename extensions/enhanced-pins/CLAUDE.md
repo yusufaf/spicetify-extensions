@@ -4,18 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A single-file Spicetify (Spotify desktop client) extension: `enhanced-pins.js` (~3100 lines). No build step, no bundler, no dependencies at runtime. The entire extension is one IIFE that runs inside Spotify's `xpui` renderer process. Everything else in the repo is packaging (`manifest.json` for Spicetify Marketplace) or release tooling.
+A single-file Spicetify (Spotify desktop client) extension: `enhanced-pins.js` (~3100 lines). No build step, no bundler, no dependencies at runtime. The entire extension is one IIFE that runs inside Spotify's `xpui` renderer process. Everything else in this folder is docs, screenshots and the changelog.
 
 ## Commands
 
 ```bash
-pnpm test        # node --check enhanced-pins.js — syntax gate, the only automated test
+pnpm test        # from the repo root: syntax-checks every extension, including enhanced-pins.js
 spicetify apply  # reload Spotify with current extension file
 ```
 
-- Package manager is **pnpm** (pinned via `packageManager` in package.json).
-- Husky hooks: `pre-commit` runs `pnpm test`; `commit-msg` runs commitlint (Conventional Commits — required, release-please derives versions from it).
-- No linter, no unit test framework. Verification is `node --check` plus live testing in the running client.
+- No linter, no unit test framework for this extension. Verification is `node --check` plus live testing in the running client.
+- Commits and releases: see the repo-root CLAUDE.md.
 
 ## Live testing
 
@@ -55,7 +54,7 @@ Key invariants:
 
 ## Versioning
 
-Version lives in three places kept in sync by release-please: `package.json`, and the `// VERSION:` banner comment in `enhanced-pins.js` (wrapped in `x-release-please-start-version` markers). Do not bump versions manually; land Conventional Commits and let the release workflow do it.
+Release-please owns the version at the repo root; it updates the `// VERSION:` banner comment in `enhanced-pins.js` (wrapped in `x-release-please-start-version` markers) and `CHANGELOG.md`. Do not bump versions manually; land Conventional Commits (scope `enhanced-pins`) and let the release workflow do it. The Marketplace entry is in the repo-root `manifest.json`.
 
 ## Style
 

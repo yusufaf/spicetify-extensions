@@ -58,7 +58,7 @@ const AL_VERSION = '1.1.0';
 // x-release-please-end-version
 
 /** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-const AL_GITHUB_REPO = 'yusufaf/spicetify-album-length';
+const AL_ISSUE_URL = 'https://github.com/yusufaf/spicetify-extensions/issues/new?template=album-length.yml';
 
 const AL_HUB_URL = 'https://spicetify.yusufaf.dev/';
 const AL_DOCS_URL = `${AL_HUB_URL}album-length/`;
@@ -1028,7 +1028,7 @@ function showSettingsModal() {
       <div class="al-settings-footer-links">
         <a href="${AL_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="Album Length documentation">Docs</a>
         <a href="${AL_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-        <a class="al-settings-github-link" href="https://github.com/${AL_GITHUB_REPO}/issues/new" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+        <a class="al-settings-github-link" href="${AL_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
           <svg viewBox="0 0 16 16" class="al-settings-github-icon" aria-hidden="true"><path d="${GITHUB_SVG_PATH}"/></svg>
         </a>
       </div>

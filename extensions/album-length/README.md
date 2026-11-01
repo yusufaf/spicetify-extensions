@@ -35,7 +35,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`album-length.js`](https://raw.githubusercontent.com/yusufaf/spicetify-album-length/main/album-length.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`album-length.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/album-length/album-length.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -83,4 +83,4 @@ Each tracklist row contains a link to the album it came from (`/album/<id>`). Wh
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](../../LICENSE).

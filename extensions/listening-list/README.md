@@ -33,7 +33,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`listening-list.js`](https://raw.githubusercontent.com/yusufaf/spicetify-listening-list/main/listening-list.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`listening-list.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/listening-list/listening-list.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -71,4 +71,4 @@ Accessed via profile menu → "Listening List". Toggle surfaces, choose badge st
 - Open DevTools: enable once via `spicetify enable-devtools`, then `Ctrl+Shift+I` inside Spotify.
 
 ## License
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](../../LICENSE).

@@ -38,7 +38,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`producers.js`](https://raw.githubusercontent.com/yusufaf/spicetify-producers/main/producers.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`producers.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/producers/producers.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -60,7 +60,7 @@ There are two switches, **Show on album pages** and **Show on playlist pages**, 
 - **"—" means Spotify has no producer credit for that track.** That's common for solo electronic and ambient artists, whose credits often list only the artist and the composer. In a sample of 40 tracks, 58% had a producer credit.
 - **"?" means the credits couldn't be loaded**, for example during a network drop. It retries on its own once requests start working again. Hover any "—" or "?" for a short explanation.
 - **Credits are Spotify's.** If a name is missing or wrong, it's missing or wrong in **View credits** too.
-- **Spotify in another language:** Spotify sends role names as display text. The extension matches the English names, so it may show "—" everywhere if Spotify's language isn't English. Please [open an issue](https://github.com/yusufaf/spicetify-producers/issues) if that happens to you.
+- **Spotify in another language:** Spotify sends role names as display text. The extension matches the English names, so it may show "—" everywhere if Spotify's language isn't English. Please [open an issue](https://github.com/yusufaf/spicetify-extensions/issues/new?template=producers.yml) if that happens to you.
 - Tested on Spotify 1.3.3 with Spicetify 2.45.
 
 ## How it works
@@ -73,4 +73,4 @@ The column itself is added by extending Spotify's grid template with a `[produce
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](../../LICENSE).

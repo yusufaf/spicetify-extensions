@@ -41,7 +41,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`enhanced-pins.js`](https://raw.githubusercontent.com/yusufaf/spicetify-enhanced-pins/main/enhanced-pins.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`enhanced-pins.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/enhanced-pins/enhanced-pins.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -108,11 +108,11 @@ Pins and settings are stored in Spotify's local storage on this computer, so the
 
 ## Contributing
 
-Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions welcome! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](../../LICENSE) for details.
 
 ## Acknowledgments
 

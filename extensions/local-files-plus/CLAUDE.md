@@ -8,12 +8,7 @@ A single-file Spicetify extension (`local-files-plus.js`, ~1700 lines, no build 
 
 ## Commands
 
-```bash
-pnpm test          # node --check, then node:test suites in test/ (parsers + matching helpers)
-pnpm install        # installs husky hooks via `prepare`
-```
-
-Husky runs `pnpm test` on pre-commit and `commitlint` (config-conventional) on commit-msg. Commit messages **must** be Conventional Commits — release-please parses them to cut releases.
+Run from the repo root: `pnpm test` (syntax-checks every extension and runs this one's `node:test` suites in `test/`: parsers, matching helpers, single-instance). Commits and releases: see the repo-root CLAUDE.md.
 
 ### Testing changes in the real client
 
@@ -62,5 +57,5 @@ Everything else needs the live client:
 
 - Keep code in `//#region` blocks; JSDoc typedefs at the top drive editor tooling since there's no TypeScript build.
 - Console output is prefixed `[Local Files+]`.
-- `manifest.json` is the Spicetify Marketplace descriptor; `preview` must point at a file that actually exists in the repo.
-- The version lives in the file header between `x-release-please-start-version`/`x-release-please-end-version` markers, and in `package.json`/`version.txt`. Don't bump versions by hand — release-please owns all three via `release-please-config.json`.
+- This extension's Marketplace entry is in the repo-root `manifest.json`; its `preview` must point at a file that actually exists.
+- The version lives in the file header between `x-release-please-start-version`/`x-release-please-end-version` markers, and in `version.txt`. Don't bump versions by hand — release-please owns both (at the repo root).

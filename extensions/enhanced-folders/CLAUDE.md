@@ -14,14 +14,10 @@ cp enhanced-folders.js ~/.config/spicetify/Extensions/   # macOS/Linux
 copy enhanced-folders.js "%APPDATA%\spicetify\Extensions\"  # Windows
 spicetify config extensions enhanced-folders.js          # first time only
 spicetify apply                                          # reload Spotify with changes
-
-pnpm install            # installs husky + commitlint (dev only; no runtime deps)
-pnpm test               # placeholder — prints "no tests", always passes
 ```
 
-- **There is no automated test suite.** `pnpm test` is a stub the pre-commit hook runs. Verification is manual: `spicetify apply`, then open DevTools (`Ctrl+Shift+J`, needs `spicetify enable-devtools`) and look for `[Enhanced Folders]`-prefixed console output. Boot success logs `[Enhanced Folders] Booted.`
-- **Commits are linted.** `commit-msg` husky hook runs commitlint with `@commitlint/config-conventional` — use Conventional Commits (`feat:`, `fix:`, `chore:`, etc.) or the commit is rejected.
-- **Releases are automated** via release-please (`release-type: simple`). Don't hand-edit version numbers or `CHANGELOG.md`; merging conventional commits to `main` drives the release PR. Version lives in `package.json` + `.release-please-manifest.json`.
+- Run `pnpm test` from the repo root: it only syntax-checks (`node --check`) this extension; there are no unit tests. Verification is manual: `spicetify apply`, then open DevTools (`Ctrl+Shift+J`, needs `spicetify enable-devtools`) and look for `[Enhanced Folders]`-prefixed console output. Boot success logs `[Enhanced Folders] Booted.`
+- **Commits and releases** follow the repo-root CLAUDE.md (use `enhanced-folders` as the commit scope). Don't hand-edit version numbers or `CHANGELOG.md`; release-please owns the version at the repo root.
 
 ## Architecture
 

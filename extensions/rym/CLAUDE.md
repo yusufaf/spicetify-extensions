@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Single-file Spicetify extension. `rym-integration.js` is the entire product — it injects a RateYourMusic links card into Spotify's Now Playing right sidebar. No build step, no bundler, no framework, no runtime dependencies. Everything in `node_modules/` is commit tooling only.
+Single-file Spicetify extension. `rym-integration.js` is the entire product — it injects a RateYourMusic links card into Spotify's Now Playing right sidebar. No build step, no bundler, no framework, no runtime dependencies.
 
 ## Commands
 
 ```bash
-pnpm test              # node --check rym-integration.js — syntax gate only, no test suite
+pnpm test              # from the repo root: syntax-checks every extension, including rym-integration.js; no unit tests for rym
 spicetify apply        # reload Spotify with local changes (after copying the file, see below)
 ```
 
@@ -54,10 +54,6 @@ Spicetify's `PopupModal` was broken for this use case, so `showCustomModal()` is
 
 ## Release process
 
-Automated by release-please (`.github/workflows/release-please.yml`, `release-please-config.json`), release-type `simple`. Version is stamped in three places and must stay in sync — do not hand-edit them:
+Automated by release-please at the repo root (manifest mode, component `rym`, tags `rym-vX.Y.Z`). Do not hand-edit the version: release-please stamps the `// VERSION:` line in `rym-integration.js`, fenced by `x-release-please-start-version` / `x-release-please-end-version` comments (keep those markers intact), and updates `CHANGELOG.md`. The Marketplace entry is in the repo-root `manifest.json`.
 
-- `package.json` `$.version`
-- `.release-please-manifest.json`
-- the `// VERSION:` line in `rym-integration.js`, fenced by `x-release-please-start-version` / `x-release-please-end-version` comments (keep those markers intact)
-
-Commits must follow Conventional Commits — commitlint runs on `commit-msg` via husky, and `pnpm test` runs on `pre-commit`. A malformed subject line will block the commit.
+Commits must follow Conventional Commits with scope `rym` (e.g. `fix(rym): ...`); see the repo-root CLAUDE.md. A malformed subject line is rejected by the commit-msg hook.

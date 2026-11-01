@@ -6,8 +6,8 @@
 
 Add custom images, descriptions, and inline rename to Spotify playlist folders — the metadata Spotify never exposed natively.
 
-[![Release](https://img.shields.io/github/v/release/yusufaf/spicetify-enhanced-folders?sort=semver)](https://github.com/yusufaf/spicetify-enhanced-folders/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/yusufaf/spicetify-extensions?sort=semver&filter=enhanced-folders-*)](https://github.com/yusufaf/spicetify-extensions/releases?q=enhanced-folders&expanded=true)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
 ![Six playlist folders in the Your Library sidebar, each showing a custom cover image instead of the default folder icon](preview.png)
 
@@ -44,7 +44,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`enhanced-folders.js`](https://raw.githubusercontent.com/yusufaf/spicetify-enhanced-folders/main/enhanced-folders.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`enhanced-folders.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/enhanced-folders/enhanced-folders.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:
@@ -110,11 +110,11 @@ If Spotify renames these classes in a future build, decoration will silently no-
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+See [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT — see [LICENSE](../../LICENSE).
 
 ## Acknowledgments
 

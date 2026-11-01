@@ -8,12 +8,7 @@ A single-file Spicetify extension (`album-length.js`, ~1100 lines, no build step
 
 ## Commands
 
-```bash
-pnpm test          # node --check album-length.js — syntax gate, the only automated test
-pnpm install       # installs husky hooks via `prepare`
-```
-
-Husky runs `pnpm test` on pre-commit and `commitlint` (config-conventional) on commit-msg. Commit messages **must** be Conventional Commits — release-please parses them to cut releases.
+Run from the repo root: `pnpm test` (syntax-checks every extension, including `node --check album-length.js`; this extension has no unit tests). Commits and releases: see the repo-root CLAUDE.md.
 
 ### Testing changes in the real client
 
@@ -61,5 +56,5 @@ Config load is defensive: `normalizeHex`, `normalizeThresholds` (forces ascendin
 - Keep code in `//#region` blocks; JSDoc on functions (the typedefs at the top drive editor tooling since there's no TypeScript).
 - Console output is prefixed `[Album Length]`. Expected-and-handled failures use `console.debug`, unexpected ones `console.warn`.
 - Styles are one injected `<style id="al-styles">`; theme colors come from `--spice-*` CSS vars, so changes must be checked against both light and dark themes.
-- The version lives in the file header between `x-release-please-start-version` / `x-release-please-end-version` markers, and in `package.json`/`version.txt`. **Don't bump versions by hand** — release-please owns all three via `release-please-config.json`.
-- `manifest.json` is the Spicetify Marketplace descriptor; `preview` must point at a file that actually exists in the repo.
+- The version lives in the file header between `x-release-please-start-version` / `x-release-please-end-version` markers, and in `version.txt`. **Don't bump versions by hand** — release-please owns both (at the repo root).
+- This extension's Marketplace entry is in the repo-root `manifest.json`; its `preview` must point at a file that actually exists.

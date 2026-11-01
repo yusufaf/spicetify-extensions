@@ -11,12 +11,11 @@ The v1 design, decisions, and spike findings are in `docs/superpowers/specs/2026
 ## Commands
 
 ```bash
-pnpm test        # node --check smart-add.js, then node --test "test/*.test.js"
+pnpm test        # from the repo root: syntax-checks every extension and runs smart-add's test/*.test.js
 ```
 
 - Pure logic (parsing, grouping, pruning, freshness, URI extraction) is exported through the `module.exports` guard at the end of `smart-add.js` and unit-tested in `test/`. In Spotify the guard calls `saMain()` instead. Add new pure functions to that export list and test them there.
-- Package manager is **pnpm** (pinned via `packageManager`).
-- Husky: `pre-commit` runs `pnpm test`; `commit-msg` runs commitlint (Conventional Commits — release-please derives versions from them).
+- Commits and releases: see the repo-root CLAUDE.md (scope `smart-add`).
 
 ## Live testing
 
@@ -41,7 +40,7 @@ Key invariants:
 
 ## Versioning
 
-Version lives in `package.json` and the `// VERSION:` banner in `smart-add.js` (inside `x-release-please` markers), kept in sync by release-please. Don't bump by hand; land Conventional Commits.
+Release-please owns the version at the repo root; it updates the `// VERSION:` banner in `smart-add.js` (inside `x-release-please` markers) and `CHANGELOG.md`. Don't bump by hand; land Conventional Commits. The Marketplace entry is in the repo-root `manifest.json`.
 
 ## Style
 

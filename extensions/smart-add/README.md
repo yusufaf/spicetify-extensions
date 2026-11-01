@@ -32,7 +32,7 @@ Requires [Spicetify](https://spicetify.app/docs/getting-started), installed and 
 
 ### Manually
 
-1. Download [`smart-add.js`](https://raw.githubusercontent.com/yusufaf/spicetify-smart-add/main/smart-add.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
+1. Download [`smart-add.js`](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/main/extensions/smart-add/smart-add.js) (right-click → **Save link as…**) into your Spicetify `Extensions` folder:
    - Windows: `%APPDATA%\spicetify\Extensions`
    - macOS / Linux: `~/.config/spicetify/Extensions`
 2. Enable it and apply:

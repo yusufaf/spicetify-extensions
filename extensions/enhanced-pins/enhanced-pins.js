@@ -202,7 +202,7 @@ const EP_VERSION = '1.3.0';
 // x-release-please-end-version
 
 /** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-const EP_GITHUB_REPO = 'yusufaf/spicetify-enhanced-pins';
+const EP_ISSUE_URL = 'https://github.com/yusufaf/spicetify-extensions/issues/new?template=enhanced-pins.yml';
 
 const EP_HUB_URL = 'https://spicetify.yusufaf.dev/';
 const EP_DOCS_URL = `${EP_HUB_URL}enhanced-pins/`;
@@ -766,7 +766,7 @@ function showSettingsModal() {
       <div class="ep-settings-footer-links">
         <a href="${EP_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="Enhanced Pins documentation">Docs</a>
         <a href="${EP_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-        <a class="ep-settings-github-link" href="https://github.com/${EP_GITHUB_REPO}/issues/new" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+        <a class="ep-settings-github-link" href="${EP_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
           <svg viewBox="0 0 16 16" class="ep-settings-icon" aria-hidden="true"><path d="${GITHUB_SVG_PATH}"/></svg>
         </a>
       </div>

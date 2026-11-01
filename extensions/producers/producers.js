@@ -23,7 +23,7 @@
   const PR_VERSION = "0.2.0";
   // x-release-please-end-version
 
-  const PR_GITHUB_REPO = "yusufaf/spicetify-producers";
+  const PR_GITHUB_URL = "https://github.com/yusufaf/spicetify-extensions/tree/main/extensions/producers";
   const LOG_PREFIX = "[Producers]";
 
   const CONFIG_KEY = "producers-config";
@@ -1110,7 +1110,7 @@
     const footer = document.createElement("div");
     footer.style.cssText = "display:flex;justify-content:flex-end;gap:12px;margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:var(--text-subdued,#b3b3b3);";
     const repo = document.createElement("a");
-    repo.href = `https://github.com/${PR_GITHUB_REPO}`;
+    repo.href = PR_GITHUB_URL;
     repo.textContent = "GitHub";
     repo.style.color = "inherit";
     const version = document.createElement("span");

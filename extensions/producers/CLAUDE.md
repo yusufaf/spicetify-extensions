@@ -8,12 +8,7 @@ A single-file Spicetify extension (`producers.js`, no build step) that adds a Pr
 
 ## Commands
 
-```bash
-pnpm test          # node --check producers.js && node --test "test/*.test.js"
-pnpm install       # installs husky hooks via `prepare`
-```
-
-Husky runs `pnpm test` on pre-commit and commitlint (config-conventional) on commit-msg. release-please cuts releases from Conventional Commits and bumps the version markers in `producers.js`, `package.json` and `version.txt`.
+Run from the repo root: `pnpm test` (syntax-checks every extension and runs this one's `test/*.test.js`: `helpers` and `credits`). Commits and releases: see the repo-root CLAUDE.md. release-please bumps the version markers in `producers.js` and `version.txt`; the Marketplace entry is in the repo-root `manifest.json`.
 
 ## Testing in the real client
 
@@ -48,6 +43,6 @@ Use the `spicetify-live-test` skill. The extension can be evaluated straight int
 
 ## Conventions
 
-- Commit messages: Conventional Commits, short and imperative.
+- Commit messages: Conventional Commits with scope `producers`, short and imperative.
 - Keep the pure helpers above the `module.exports` guard and add tests for them in `test/`.
 - Don't add comments that restate the code; do explain Spotify quirks that force a choice.
