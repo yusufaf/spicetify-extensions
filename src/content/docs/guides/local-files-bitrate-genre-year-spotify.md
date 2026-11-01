@@ -63,7 +63,7 @@ Local Files+ uses the browser's [File System Access API](https://developer.mozil
 ## Limits to know about
 
 - **Desktop only.** Spicetify modifies the Windows, macOS and Linux desktop app; the columns don't appear on your phone or in the web player.
-- **Some formats have no tag columns yet.** `.ogg`, `.oga`, `.opus`, `.wav` and `.wma` files are listed with their type and size, but their tags aren't read. `.aac` tags are read only when the file has an ID3 tag.
+- **Some formats have no tag columns yet.** `.ogg`, `.oga`, `.opus`, `.wav` and `.wma` files are listed with their type and size (WAV also shows as Lossless), but their tags aren't read. `.aac` tags are read only when the file has an ID3 tag.
 - **Bitrate is an average.** It's the file's size divided by its length, rounded to the nearest 8 kbps, and embedded cover art counts toward the size: 1 MB of artwork on a 3-minute song adds about 44 kbps.
 - **Folder access can lapse.** The columns keep showing what was last scanned, but new or changed files aren't picked up. If **Local Files+** in the profile menu says the folder needs access re-granted, click **Re-grant access**, then **Rescan**.
 - **Spotify updates.** An update can undo Spicetify's changes. Run `spicetify backup apply` to restore them; see [Troubleshooting](/troubleshooting/) if something stays broken.
