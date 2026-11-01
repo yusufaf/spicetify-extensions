@@ -1,0 +1,160 @@
+[
+  {
+    "name": "Album Length",
+    "description": "Show the length of each track's source album/EP inline in playlists, Liked Songs, and the Queue.",
+    "preview": "extensions/album-length/album-inline.png",
+    "main": "extensions/album-length/album-length.js",
+    "readme": "extensions/album-length/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "album",
+      "length",
+      "duration",
+      "playlists",
+      "tracklist"
+    ]
+  },
+  {
+    "name": "Enhanced Folders",
+    "description": "Add custom images and descriptions to Spotify playlist folders.",
+    "preview": "extensions/enhanced-folders/preview.png",
+    "main": "extensions/enhanced-folders/enhanced-folders.js",
+    "readme": "extensions/enhanced-folders/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "folders",
+      "playlists",
+      "organization",
+      "sidebar",
+      "customization"
+    ]
+  },
+  {
+    "name": "Enhanced Pins",
+    "description": "Unlimited pins in their own sidebar section, with sorting, icons, and backup",
+    "preview": "extensions/enhanced-pins/preview.png",
+    "main": "extensions/enhanced-pins/enhanced-pins.js",
+    "readme": "extensions/enhanced-pins/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "pins",
+      "playlists",
+      "organization",
+      "sidebar"
+    ]
+  },
+  {
+    "name": "Listening List",
+    "description": "Mark albums and tracks as listened, with inline indicators across Spotify.",
+    "preview": "extensions/listening-list/preview.png",
+    "main": "extensions/listening-list/listening-list.js",
+    "readme": "extensions/listening-list/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "listening",
+      "tracker",
+      "albums",
+      "library",
+      "badges"
+    ]
+  },
+  {
+    "name": "Local Files+",
+    "description": "Real tag metadata as sortable, filterable columns on the Local Files page: artist, album artist, year, genre, bitrate/quality, file type, size, folder, and more.",
+    "preview": "extensions/local-files-plus/preview.png",
+    "main": "extensions/local-files-plus/local-files-plus.js",
+    "readme": "extensions/local-files-plus/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "local files",
+      "metadata",
+      "tags",
+      "columns",
+      "id3"
+    ]
+  },
+  {
+    "name": "Producers",
+    "description": "Show each track's producers, from Spotify's own credits, as a column on album and playlist pages.",
+    "preview": "extensions/producers/producers-column.png",
+    "main": "extensions/producers/producers.js",
+    "readme": "extensions/producers/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "producers",
+      "credits",
+      "tracklist",
+      "albums",
+      "playlists"
+    ]
+  },
+  {
+    "name": "RateYourMusic Integration",
+    "description": "Quick access to RateYourMusic album and artist pages directly from Spotify's Now Playing sidebar",
+    "preview": "extensions/rym/preview.png",
+    "main": "extensions/rym/rym-integration.js",
+    "readme": "extensions/rym/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "rym",
+      "rateyourmusic",
+      "music-discovery",
+      "sidebar"
+    ]
+  },
+  {
+    "name": "Smart Add",
+    "description": "Suggests your mapped playlists first in Spotify's Add to playlist menu",
+    "preview": "extensions/smart-add/preview.png",
+    "main": "extensions/smart-add/smart-add.js",
+    "readme": "extensions/smart-add/README.md",
+    "authors": [
+      {
+        "name": "yusufaf",
+        "url": "https://github.com/yusufaf"
+      }
+    ],
+    "tags": [
+      "playlists",
+      "organization",
+      "add to playlist",
+      "suggestions",
+      "podcasts"
+    ]
+  }
+]

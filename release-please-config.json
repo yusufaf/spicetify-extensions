@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": true,
+  "tag-separator": "-",
+  "packages": {
+    "extensions/album-length": {
+      "release-type": "simple",
+      "component": "album-length",
+      "extra-files": [
+        "album-length.js"
+      ]
+    },
+    "extensions/enhanced-folders": {
+      "release-type": "simple",
+      "component": "enhanced-folders",
+      "extra-files": [
+        "enhanced-folders.js"
+      ]
+    },
+    "extensions/enhanced-pins": {
+      "release-type": "simple",
+      "component": "enhanced-pins",
+      "extra-files": [
+        "enhanced-pins.js"
+      ]
+    },
+    "extensions/listening-list": {
+      "release-type": "simple",
+      "component": "listening-list",
+      "extra-files": [
+        "listening-list.js"
+      ]
+    },
+    "extensions/local-files-plus": {
+      "release-type": "simple",
+      "component": "local-files-plus",
+      "extra-files": [
+        "local-files-plus.js"
+      ]
+    },
+    "extensions/producers": {
+      "release-type": "simple",
+      "component": "producers",
+      "extra-files": [
+        "producers.js"
+      ]
+    },
+    "extensions/rym": {
+      "release-type": "simple",
+      "component": "rym",
+      "extra-files": [
+        "rym-integration.js"
+      ]
+    },
+    "extensions/smart-add": {
+      "release-type": "simple",
+      "component": "smart-add",
+      "extra-files": [
+        "smart-add.js"
+      ]
+    }
+  }
+}

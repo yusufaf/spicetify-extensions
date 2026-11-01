@@ -1,0 +1,20 @@
+node_modules/
+.husky/_/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+tmpclaude-*-cwd
+
+*.log
+.env
+.env.local
+*.tmp
+.cache/

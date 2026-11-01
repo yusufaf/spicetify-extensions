@@ -1,0 +1,16 @@
+{
+  "name": "spicetify-extensions",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "test": "node tools/test-extensions.mjs && pnpm -C tools/compat test",
+    "compat": "pnpm -C tools/compat compat",
+    "site": "pnpm -C site",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "husky": "^9.1.7"
+  }
+}
