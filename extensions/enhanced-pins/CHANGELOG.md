@@ -1,0 +1,68 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.3.0](https://github.com/yusufaf/spicetify-enhanced-pins/compare/v1.2.0...v1.3.0) (2026-11-01)
+
+
+### Features
+
+* add customizable sidebar section title ([bb2e8bb](https://github.com/yusufaf/spicetify-enhanced-pins/commit/bb2e8bb56f82b9658051b2e9de8be60a27e35424))
+* add version and GitHub issue link to settings modal footer ([d301df0](https://github.com/yusufaf/spicetify-enhanced-pins/commit/d301df0c470115c45cc3bbbafc6bb39bce6e8936))
+* expose a health check for spicetify-compat ([#11](https://github.com/yusufaf/spicetify-enhanced-pins/issues/11)) ([98db18b](https://github.com/yusufaf/spicetify-enhanced-pins/commit/98db18bdecc475a10920b044aaf681ceb22a1b4d))
+* link the docs from settings and spell out Marketplace install ([#8](https://github.com/yusufaf/spicetify-enhanced-pins/issues/8)) ([31c51fc](https://github.com/yusufaf/spicetify-enhanced-pins/commit/31c51fc0216eed91bc3dcfec0dd5969d9a5fd23f))
+
+
+### Bug Fixes
+
+* correctly pin Spotify's auto-generated library entries ([#3](https://github.com/yusufaf/spicetify-enhanced-pins/issues/3)) ([b08ee1f](https://github.com/yusufaf/spicetify-enhanced-pins/commit/b08ee1f848dfd8cea93da975644ef8d7d1238ca2))
+* keep pins inside the library on Spotify 1.3.4 DOM ([#7](https://github.com/yusufaf/spicetify-enhanced-pins/issues/7)) ([b9d6f1b](https://github.com/yusufaf/spicetify-enhanced-pins/commit/b9d6f1bc311de4173f5f96a460e5ffb39701ca33))
+* restore sidebar injection on Spotify 1.3.3 DOM ([#4](https://github.com/yusufaf/spicetify-enhanced-pins/issues/4)) ([3be02b8](https://github.com/yusufaf/spicetify-enhanced-pins/commit/3be02b8a97ff55094a8d7903b0f0ca61ece17e2e))
+* run only one copy when the extension is loaded twice ([#12](https://github.com/yusufaf/spicetify-enhanced-pins/issues/12)) ([89dd5f1](https://github.com/yusufaf/spicetify-enhanced-pins/commit/89dd5f18af5cc74666f4e4d09213033d12e365c5))
+
+## [1.2.0] - 2026-06-06
+
+### Added
+- Customizable pin marker icon: choose from a bundled preset set (pushpin, star, heart, lightning, fire, gem, and goofy faces) or use any emoji
+- Per-pin icon override via the "Change icon" context menu action (available for all pin types, not just owned playlists)
+- Global default icon picker in the settings modal ("Pin Icon" section); pins without an override follow it
+- Icon choices are included in JSON export/import; unknown/legacy values fall back to the pushpin default
+
+## [1.1.1] - 2026-04-25
+
+### Added
+- "Enhanced Pins" entry in the Spotify profile menu so settings are reachable when the library sidebar is hidden or empty
+
+## [1.1.0] - 2026-04-18
+
+### Added
+- Export pins & config to JSON from the settings modal (versioned schema, v1)
+- Import pins & config from a JSON file with validation and confirmation
+- Configurable keyboard shortcuts (toggle expand, open settings, focus first pin) with a per-binding recorder UI in settings; disabled by default
+- "Move to top" / "Move to bottom" context menu actions (visible only in Custom sort mode)
+
+### Changed
+- Swapped settings gear icon SVG for a cleaner filled cog that renders consistently across browsers
+- Removed `cursor: pointer` from draggable pin items so hover matches native Spotify sidebar behavior (grabbing cursor still appears during an active drag)
+
+## [1.0.0] - 2025-03-07
+
+### Added
+- Unlimited enhanced pins for playlists, albums, podcasts, and audiobooks
+- Drag and drop reordering of pinned items
+- Custom context menu with full playback and management actions
+- Smart ownership detection for edit/delete/visibility options
+- Automatic library deduplication (hides pinned items from native list)
+- Settings modal with configurable options
+- Keyboard navigation support
+- Theme-agnostic styling via Spicetify CSS variables
+- Native sidebar integration with artwork and subtitles
+- Active item highlighting synced with current playback/navigation
+
+[1.2.0]: https://github.com/yusufaf/spicetify-enhanced-pins/releases/tag/v1.2.0
+[1.1.1]: https://github.com/yusufaf/spicetify-enhanced-pins/releases/tag/v1.1.1
+[1.1.0]: https://github.com/yusufaf/spicetify-enhanced-pins/releases/tag/v1.1.0
+[1.0.0]: https://github.com/yusufaf/spicetify-enhanced-pins/releases/tag/v1.0.0
