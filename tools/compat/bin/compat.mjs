@@ -45,7 +45,7 @@ switch (command) {
     const current = await indexLatestInstaller({ installer: values.installer });
     if (!loadIndex(current.id)) saveIndex(current.id, current.index);
     console.log(`Installer kept at ${current.installer}\n`);
-    console.log(formatReport(await compare({ baselineId: verified.build, current, projectsDir: config.projectsDir }), { verbose: values.verbose }));
+    console.log(formatReport(await compare({ baselineId: verified.build, current }), { verbose: values.verbose }));
     break;
   }
   case 'integrity': {

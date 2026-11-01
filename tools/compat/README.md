@@ -1,21 +1,22 @@
-# spicetify-compat
+# compat
 
 Tells you when it's safe to update Spotify and Spicetify, and checks that every extension still works afterwards.
 
-Spotify's desktop client ships about once a week and regularly breaks Spicetify extensions. Static analysis of a new Spotify build can't tell you whether an extension still works: most extensions now find the UI through ARIA roles and data attributes, and only the logged-in client renders those. So this repo splits the job:
+Spotify's desktop client ships about once a week and regularly breaks Spicetify extensions. Static analysis of a new Spotify build can't tell you whether an extension still works: most extensions now find the UI through ARIA roles and data attributes, and only the logged-in client renders those. So this tool splits the job:
 
-- **`watch` (GitHub Actions)** notices new Spotify (Windows GA) and Spicetify releases and opens one issue per combination, saying whether Spicetify claims support yet.
+- **`watch` (GitHub Actions, `.github/workflows/compat-watch.yml` at the repo root)** notices new Spotify (Windows GA) and Spicetify releases and opens one issue per combination, labelled `compat-watch`, saying whether Spicetify claims support yet.
 - **`compat scan` (your PC)** downloads the new installer, keeps it for rollback, and compares the build with your last-known-good one. It covers GraphQL operations, `data-testid`s and the css-map classes your extensions use.
 - **`compat check` (your PC)** checks that the extension files Spotify loads are intact, cold-starts Spotify, and reads each extension's health hook.
 
-It's built for the `yusufaf/spicetify-*` extensions but works with any local extension repo that has a `manifest.json` with a `main` file.
+It checks every extension listed in the root `manifest.json` of this repo.
 
 ## Setup
 
 Requires Node 22+, Windows, Spicetify, and Spotify launched with a debug port (`spotify_launch_flags = --remote-debugging-port=9222` in `config-xpui.ini`).
 
+Run these from `tools/compat` (or use `pnpm compat <command>` from the repo root):
+
 ```sh
-pnpm install
 cp compat.local.example.json compat.local.json   # then edit routes and expectations
 pnpm compat baseline                             # index the installed build as last-known-good
 ```
@@ -33,7 +34,7 @@ Spotify's own updater should stay blocked, so you update when you choose to. Blo
    2. Run the installer that `scan` saved under `%LOCALAPPDATA%\spicetify-compat\installers`. You may need to lift the Deny ACL on the `Update` folder first; put it back afterwards.
    3. `spicetify backup apply`
 4. Run `pnpm compat check`. When nothing fails, run `pnpm compat check --record` and commit `state/verified.json`.
-5. If an extension fails, fix it in its repo (the `spicetify-live-test` skill helps) and run `check` again. To roll back, reinstall the previous saved installer and the previous Spicetify version.
+5. If an extension fails, fix it under `extensions/` (the `spicetify-live-test` skill helps) and run `check` again. To roll back, reinstall the previous saved installer and the previous Spicetify version.
 
 ## Health hook contract
 
@@ -53,18 +54,4 @@ The key is the `main` file name without `.js`. `check` reads the hook right afte
 
 - `state/builds/<build>.json` holds names and hashes extracted from a Spotify build: GraphQL operations, `data-testid`s and CSS class names. No Spotify code is stored.
 - `state/verified.json` is the last-known-good build, written by `compat baseline` or `compat check --record`.
-- `state/watch.json` is the watcher's last observation, committed by the workflow.
-
-## Reusable CI for extension repos
-
-```yaml
-# .github/workflows/ci.yml in an extension repo
-name: ci
-on:
-  push:
-    branches: [main]
-  pull_request:
-jobs:
-  test:
-    uses: yusufaf/spicetify-compat/.github/workflows/ext-ci.yml@main
-```
+- `watch.json` on the `compat-state` branch is the watcher's last observation, committed there by the workflow so main's history stays clean.

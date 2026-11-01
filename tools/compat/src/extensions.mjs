@@ -1,28 +1,27 @@
-import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, basename } from 'node:path';
+import { readFileSync, existsSync } from 'node:fs';
+import { join, basename, dirname } from 'node:path';
+import { MONOREPO_ROOT } from './paths.mjs';
 
-// Local extension repos: any <projectsDir>/spicetify-*/manifest.json with a `main` file.
-export function findExtensions(projectsDir) {
+// Every extension listed in the monorepo's root manifest.json (an array, as Marketplace reads it).
+// `dir` is the extension's folder and `main` its file name, which is also what Spotify loads.
+export function findExtensions(root = MONOREPO_ROOT) {
+  const manifestPath = join(root, 'manifest.json');
+  if (!existsSync(manifestPath)) return [];
+  let manifests;
+  try {
+    manifests = JSON.parse(readFileSync(manifestPath, 'utf8'));
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(manifests)) manifests = [manifests];
   const found = [];
-  for (const entry of readdirSync(projectsDir, { withFileTypes: true })) {
-    if (!entry.isDirectory() || !entry.name.startsWith('spicetify-')) continue;
-    const dir = join(projectsDir, entry.name);
-    // A linked worktree has a .git file instead of a directory; only main checkouts count.
-    if (!existsSync(join(dir, '.git')) || !statSync(join(dir, '.git')).isDirectory()) continue;
-    const manifestPath = join(dir, 'manifest.json');
-    if (!existsSync(manifestPath)) continue;
-    let manifest;
-    try {
-      manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-    } catch {
-      continue;
-    }
-    if (typeof manifest.main !== 'string' || !manifest.main.endsWith('.js')) continue;
+  for (const manifest of manifests) {
+    if (typeof manifest?.main !== 'string' || !manifest.main.endsWith('.js')) continue;
     found.push({
       id: basename(manifest.main, '.js'),
-      title: manifest.name ?? entry.name,
-      dir,
-      main: manifest.main,
+      title: manifest.name ?? basename(manifest.main, '.js'),
+      dir: join(root, dirname(manifest.main)),
+      main: basename(manifest.main),
     });
   }
   return found.sort((a, b) => a.id.localeCompare(b.id));

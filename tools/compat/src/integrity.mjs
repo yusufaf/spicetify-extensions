@@ -12,7 +12,7 @@ export function enabledExtensions() {
 
 function headSize(dir, file) {
   try {
-    return Number(execFileSync('git', ['-C', dir, 'cat-file', '-s', `HEAD:${file}`], { encoding: 'utf8', stdio: 'pipe' }).trim());
+    return Number(execFileSync('git', ['-C', dir, 'cat-file', '-s', `HEAD:./${file}`], { encoding: 'utf8', stdio: 'pipe' }).trim());
   } catch {
     return null;
   }
@@ -92,7 +92,7 @@ export function judge(facts) {
 export function runIntegrity(config) {
   let ok = true;
   const enabled = enabledExtensions();
-  for (const ext of findExtensions(config.projectsDir)) {
+  for (const ext of findExtensions()) {
     const findings = judge(gatherFacts(ext, { enabled }));
     const failed = findings.some(f => f.level === 'FAIL');
     if (failed) ok = false;

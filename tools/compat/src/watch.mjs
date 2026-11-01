@@ -11,7 +11,7 @@ const SCOOP_MANIFEST = 'https://raw.githubusercontent.com/ScoopInstaller/Extras/
 const STATE = join(STATE_DIR, 'watch.json');
 
 const token = process.env.GITHUB_TOKEN;
-const repo = process.env.GITHUB_REPOSITORY ?? 'yusufaf/spicetify-compat';
+const repo = process.env.GITHUB_REPOSITORY ?? 'yusufaf/spicetify-extensions';
 
 async function github(method, path, body) {
   const res = await fetch(`https://api.github.com/repos/${repo}${path}`, {
@@ -83,7 +83,7 @@ if (!token) {
     await github('POST', `/issues/${issue.number}/comments`, { body: `Spicetify pre-release ${seen.prerelease} is out (report only).` });
   }
 } else {
-  const created = await github('POST', '/issues', { title, body });
+  const created = await github('POST', '/issues', { title, body, labels: ['compat-watch'] });
   if (issue) {
     await github('POST', `/issues/${issue.number}/comments`, { body: `Superseded by #${created.number}.` });
     await github('PATCH', `/issues/${issue.number}`, { state: 'closed', state_reason: 'not_planned' });

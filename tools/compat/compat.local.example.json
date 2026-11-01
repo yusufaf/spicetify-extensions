@@ -1,5 +1,4 @@
 {
-  "projectsDir": "C:/Projects",
   "cdpPort": 9222,
   "routes": {
     "album": "/album/<album-id>",

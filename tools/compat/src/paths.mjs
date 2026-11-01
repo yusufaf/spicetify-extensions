@@ -5,6 +5,8 @@ import { readFileSync, existsSync } from 'node:fs';
 const env = process.env;
 
 export const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+// tools/compat sits two levels below the monorepo root.
+export const MONOREPO_ROOT = join(REPO_ROOT, '..', '..');
 export const STATE_DIR = join(REPO_ROOT, 'state');
 export const BUILDS_DIR = join(STATE_DIR, 'builds');
 
@@ -24,7 +26,6 @@ export function loadLocalConfig() {
   const path = join(REPO_ROOT, 'compat.local.json');
   const config = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {};
   return {
-    projectsDir: config.projectsDir ?? 'C:/Projects',
     cdpPort: config.cdpPort ?? 9222,
     routes: config.routes ?? {},
     expect: config.expect ?? {},

@@ -143,14 +143,14 @@ export async function indexLatestInstaller({ installer } = {}) {
   }
 }
 
-export async function compare({ baselineId, current, projectsDir }) {
+export async function compare({ baselineId, current }) {
   const baseline = loadIndex(baselineId);
   if (!baseline) throw new Error(`No index for baseline ${baselineId}; run \`compat baseline\` first`);
   const { stable, prerelease } = await fetchReleases(process.env.GITHUB_TOKEN);
   const cssMap = await fetchCssMap(stable.tag_name);
   const support = parseCompatibility(stable.body).windows;
 
-  const extensions = findExtensions(projectsDir).map(ext => {
+  const extensions = findExtensions().map(ext => {
     const deps = extensionDeps(readFileSync(join(ext.dir, ext.main), 'utf8'));
     const results = judgeDeps(deps, { baseline, current: current.index, cssMap });
     return { ...ext, results };

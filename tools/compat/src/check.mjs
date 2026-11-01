@@ -63,7 +63,7 @@ export async function runCheck(config, { restart = true } = {}) {
   }
 
   const enabled = enabledExtensions();
-  const extensions = findExtensions(config.projectsDir).filter(ext => enabled.has(ext.main));
+  const extensions = findExtensions().filter(ext => enabled.has(ext.main));
 
   if (restart) {
     console.log('\nRestarting Spotify…');
@@ -120,7 +120,7 @@ export async function runCheck(config, { restart = true } = {}) {
       console.log(`  ${status.padEnd(8)} ${ext.id}${problems.length ? ` — ${problems.join('; ')}` : ''}`);
       for (const e of results[ext.id].errors.slice(0, 3)) console.log(`           ${e.slice(0, 200)}`);
     }
-    const skipped = findExtensions(config.projectsDir).filter(ext => !enabled.has(ext.main));
+    const skipped = findExtensions().filter(ext => !enabled.has(ext.main));
     if (skipped.length) console.log(`  (not enabled, skipped: ${skipped.map(e => e.id).join(', ')})`);
   } finally {
     conn.close();
