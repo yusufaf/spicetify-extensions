@@ -11,7 +11,7 @@ Spotify doesn't offer year, genre, album artist, file type or quality as columns
 
 ## What Local Files+ adds
 
-![The Spotify Local Files page with extra Quality, Year, Genre and Album Artist columns added by Local Files+](https://raw.githubusercontent.com/yusufaf/spicetify-local-files-plus/HEAD/preview.png)
+![The Spotify Local Files page with extra Quality, Year, Genre and Album Artist columns added by Local Files+](https://raw.githubusercontent.com/yusufaf/spicetify-extensions/HEAD/extensions/local-files-plus/preview.png)
 
 - **New columns:** Quality, Year, Genre and Album Artist are on by default. Artist, Type, Size, Date Modified, # (track number), BPM and Folder are optional. Turn any of them on or off in Spotify's own "Change visible columns" menu.
 - **Quality:** an average bitrate for lossy files (for example `320 kbps`), worked out from each file's size and length, or `Lossless` for FLAC, ALAC and WAV, with the bit depth and sample rate for FLAC (for example `Lossless (24/96.0)`).
