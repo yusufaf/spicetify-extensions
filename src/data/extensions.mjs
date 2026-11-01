@@ -22,7 +22,9 @@ export const EXTENSIONS = [
         repo: 'spicetify-local-files-plus',
         slug: 'local-files-plus',
     },
-    { label: 'RateYourMusic Integration', order: 6, repo: 'spicetify-rym', slug: 'rym' },
+    { label: 'Producers', order: 6, repo: 'spicetify-producers', slug: 'producers' },
+    { label: 'RateYourMusic Integration', order: 7, repo: 'spicetify-rym', slug: 'rym' },
+    { label: 'Smart Add', order: 8, repo: 'spicetify-smart-add', slug: 'smart-add' },
 ]
 
 // The guides folder sits beside the generated extension folders, which the sync

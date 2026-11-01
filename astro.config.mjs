@@ -15,7 +15,7 @@ export default defineConfig({
             },
             customCss: ['@fontsource-variable/figtree', './src/styles/custom.css'],
             description:
-                'Docs for a set of Spicetify extensions that add album lengths, folder and pin management, listening lists, local-file tags and RateYourMusic ratings to the Spotify desktop client.',
+                'Docs for a set of Spicetify extensions that add album lengths, folder and pin management, listening lists, local-file tags, track producers, RateYourMusic ratings and playlist suggestions to the Spotify desktop client.',
             favicon: '/favicon.svg',
             logo: { alt: '', src: './src/assets/logo.svg' },
             plugins: [
@@ -40,7 +40,7 @@ export default defineConfig({
                 }),
                 starlightLlmsTxt({
                     description:
-                        'Spicetify extensions that add album lengths, folder and pin management, listening lists, local-file tags and RateYourMusic ratings to the Spotify desktop client.',
+                        'Spicetify extensions that add album lengths, folder and pin management, listening lists, local-file tags, track producers, RateYourMusic ratings and playlist suggestions to the Spotify desktop client.',
                     details:
                         'Each extension is a single JavaScript file installed through Spicetify Marketplace or by hand. Extension pages are generated from each extension repository README and changelog; the guides are written for this site.',
                     optionalLinks: [
