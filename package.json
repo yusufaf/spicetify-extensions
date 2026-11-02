@@ -3,7 +3,8 @@
   "private": true,
   "packageManager": "pnpm@10.34.5",
   "scripts": {
-    "test": "node tools/test-extensions.mjs && pnpm -C tools/compat test",
+    "test": "node tools/test-extensions.mjs && node --test \"tools/test/*.test.mjs\" && node tools/sync-shared.mjs --check && pnpm -C tools/compat test",
+    "sync": "node tools/sync-shared.mjs",
     "compat": "pnpm -C tools/compat compat",
     "site": "pnpm -C site",
     "prepare": "husky"

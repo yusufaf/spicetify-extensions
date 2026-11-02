@@ -6,6 +6,7 @@ Monorepo for yusufaf's Spicetify extensions, their docs site and their tooling. 
 
 - `extensions/<slug>/<file>.js`: one single-file extension per folder, no build step. The path is **permanent**: Marketplace installs and the redirect stubs in the archived per-extension repos load it from `main` by this path. Never rename or move it.
 - `manifest.json`: one array of Marketplace entries; `main`, `preview` and `readme` are repo-root-relative. Adding an extension means adding an entry here and in `site/src/data/extensions.mjs` (the site build fails if they disagree).
+- `shared/<name>.js`: code every extension carries verbatim (today the settings footer). `pnpm sync` copies each file into the region between `// @shared <name>.js start` and `// @shared <name>.js end` in every extension, indented to the marker; never edit inside a region. Shared code reads the file's `EXT` object (`name`, `slug`, `version`, `footerPrefix`), whose `version` sits in an `x-release-please` block.
 - `site/`: Astro + Starlight docs site (spicetify.yusufaf.dev). Its own `package.json` and lockfile; run it with `pnpm -C site <script>`. `prebuild` reads each extension's README and CHANGELOG from this repo.
 - `tools/compat/`: Spotify/Spicetify update gate and the `window.__spicetifyHealth` contract every extension implements. `pnpm compat <command>`.
 - `tools/skills/`: agent skills (`spicetify-live-test`, `spicetify-screenshots`, `spicetify-theme-matrix`) and the per-extension spec templates.
@@ -13,7 +14,8 @@ Monorepo for yusufaf's Spicetify extensions, their docs site and their tooling. 
 ## Commands
 
 ```bash
-pnpm test            # node --check every extension, their test/*.test.js, and tools/compat tests
+pnpm test            # node --check every extension, their test/*.test.js, tools tests, pnpm sync --check, compat tests
+pnpm sync            # copy shared/*.js into the marked regions of every extension
 pnpm -C site test    # site unit tests
 pnpm -C site build   # sync extension pages + build the site
 pnpm compat check    # live health check of every extension in the running client
@@ -22,7 +24,7 @@ pnpm compat check    # live health check of every extension in the running clien
 ## Commits and releases
 
 - Conventional Commits, enforced by commitlint on commit-msg; husky pre-commit runs `pnpm test`.
-- Scope is the extension slug (`fix(rym): ...`), or `site`, `compat`, `skills`, `repo`.
+- Scope is the extension slug (`fix(rym): ...`), or `shared`, `site`, `compat`, `skills`, `repo`. A `fix(shared)` that changes every synced region releases every extension, which is usually what a footer fix wants.
 - release-please runs in manifest mode: one package per `extensions/<slug>`, tags `<slug>-vX.Y.Z`. It bumps the `x-release-please` marker in the extension file, `version.txt` and `CHANGELOG.md`. Never bump versions by hand.
 - A `feat`/`fix` commit touching N extension folders releases all N. Use `chore`/`docs`/`refactor` for changes that shouldn't ship a release.
 

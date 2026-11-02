@@ -53,19 +53,104 @@ const CONFIG_KEY = 'rym-extension-config';
 /** Gear/settings icon SVG path (16x16 viewBox, Bootstrap Icons gear-fill) */
 const GEAR_SVG_PATH = 'M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z';
 
-/** GitHub mark icon SVG path (16x16 viewBox, Bootstrap Icons github, same source as GEAR_SVG_PATH) */
-const GITHUB_SVG_PATH = 'M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z';
+/** Read by the shared footer. release-please keeps `version` in sync with the VERSION banner. */
+const EXT = {
+  name: 'RateYourMusic Integration',
+  slug: 'rym',
+  // x-release-please-start-version
+  version: '1.2.0',
+  // x-release-please-end-version
+  footerPrefix: 'rym-modal',
+};
 
-/** Extension version, shown in the settings modal footer. Kept in sync with the VERSION banner by release-please. */
-// x-release-please-start-version
-const RYM_VERSION = '1.2.0';
-// x-release-please-end-version
+// @shared footer.js start — edit shared/footer.js, then run pnpm sync
+/**
+ * Settings footer shared by every extension: version, Docs, More extensions and a
+ * report-an-issue link. Reads the file's EXT config; class names are built from
+ * EXT.footerPrefix (`${footerPrefix}-footer`, `-footer-links`, `-version`, `-github-link`, `-github-icon`).
+ */
+const SHARED_HUB_URL = 'https://spicetify.yusufaf.dev/';
 
-/** GitHub repo slug, used to build the "report an issue" link in the settings modal footer */
-const RYM_ISSUE_URL = 'https://github.com/yusufaf/spicetify-extensions/issues/new?template=rym.yml';
+/** GitHub mark icon path (16x16 viewBox, Bootstrap Icons github, MIT) */
+const SHARED_GITHUB_ICON_PATH = 'M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z';
 
-const RYM_HUB_URL = 'https://spicetify.yusufaf.dev/';
-const RYM_DOCS_URL = `${RYM_HUB_URL}rym/`;
+/** @param {{ name: string, slug: string, version: string, footerPrefix: string }} ext */
+function sharedFooterHtml(ext) {
+  const p = ext.footerPrefix;
+  const issueUrl = `https://github.com/yusufaf/spicetify-extensions/issues/new?template=${ext.slug}.yml`;
+  return `
+    <div class="${p}-footer">
+      <span class="${p}-version">v${ext.version}</span>
+      <div class="${p}-footer-links">
+        <a href="${SHARED_HUB_URL}${ext.slug}/" target="_blank" rel="noopener noreferrer" title="${ext.name} documentation">Docs</a>
+        <a href="${SHARED_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
+        <a class="${p}-github-link" href="${issueUrl}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
+          <svg viewBox="0 0 16 16" class="${p}-github-icon" aria-hidden="true"><path d="${SHARED_GITHUB_ICON_PATH}"/></svg>
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * CSS for sharedFooterHtml, to append to the extension's own stylesheet.
+ * `sticky` pins the footer to the bottom of Spicetify's PopupModal while the content scrolls.
+ * @param {{ footerPrefix: string }} ext
+ * @param {{ sticky?: boolean }} [options]
+ */
+function sharedFooterCss(ext, { sticky = false } = {}) {
+  const p = ext.footerPrefix;
+  const stickyRules = sticky
+    ? `
+      position: sticky;
+      bottom: 0;
+      padding: 10px 0 2px;
+      /* Matches Spicetify's popup container, so the sticky footer blends in under any theme */
+      background: var(--spice-player, var(--background-elevated-base, #121212));`
+    : '';
+  return `
+    .${p}-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);${stickyRules}
+    }
+    .${p}-version {
+      color: var(--spice-subtext, #b3b3b3);
+      font-size: 0.75rem;
+    }
+    .${p}-footer-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .${p}-footer a[href] {
+      display: inline-flex;
+      align-items: center;
+      color: var(--spice-subtext, #b3b3b3);
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+    .${p}-footer a[href]:hover {
+      color: var(--spice-text, #fff);
+      text-decoration: underline;
+    }
+    .${p}-footer a[href]:focus-visible {
+      outline: 2px solid var(--spice-text, #fff);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+    .${p}-github-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+  `;
+}
+// @shared footer.js end
 
 /**
  * Marker appended to outgoing album links when the companion API is configured.
@@ -647,22 +732,9 @@ function showCustomModal(title, contentElement) {
   body.className = 'rym-modal-body';
   body.appendChild(contentElement);
 
-  const footer = document.createElement('div');
-  footer.className = 'rym-modal-footer';
-  footer.innerHTML = `
-    <span class="rym-modal-version">v${RYM_VERSION}</span>
-    <div class="rym-modal-footer-links">
-      <a href="${RYM_DOCS_URL}" target="_blank" rel="noopener noreferrer" title="RateYourMusic Integration documentation">Docs</a>
-      <a href="${RYM_HUB_URL}" target="_blank" rel="noopener noreferrer" title="More Spicetify extensions by yusufaf">More extensions</a>
-      <a class="rym-modal-github-link" href="${RYM_ISSUE_URL}" target="_blank" rel="noopener noreferrer" title="Report an issue on GitHub" aria-label="Report an issue on GitHub">
-        <svg viewBox="0 0 16 16" class="rym-modal-github-icon" aria-hidden="true"><path d="${GITHUB_SVG_PATH}"/></svg>
-      </a>
-    </div>
-  `;
-
   modal.appendChild(header);
   modal.appendChild(body);
-  modal.appendChild(footer);
+  modal.insertAdjacentHTML('beforeend', sharedFooterHtml(EXT));
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
@@ -1420,51 +1492,10 @@ function injectStyles() {
   overflow-y: auto;
 }
 
+${sharedFooterCss(EXT)}
 .rym-modal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 10px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
-}
-
-.rym-modal-version {
-  color: var(--spice-subtext, #b3b3b3);
-  font-size: 0.75rem;
-}
-
-.rym-modal-footer-links {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.rym-modal-footer a[href] {
-  display: inline-flex;
-  align-items: center;
-  color: var(--spice-subtext, #b3b3b3);
-  font-size: 0.75rem;
-  text-decoration: none;
-}
-
-.rym-modal-footer a[href]:hover {
-  color: var(--spice-text, #fff);
-  text-decoration: underline;
-}
-
-.rym-modal-footer a[href]:focus-visible {
-  outline: 2px solid var(--spice-text, #fff);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-.rym-modal-github-icon {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
 }
 
 /* Settings modal */
