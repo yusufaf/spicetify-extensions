@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/yusufaf/spicetify-extensions/compare/local-files-plus-v0.4.0...local-files-plus-v0.5.0) (2026-11-02)
+
+
+### Features
+
+* **local-files-plus:** add version and issue link to the settings footer ([70c9b0f](https://github.com/yusufaf/spicetify-extensions/commit/70c9b0f6853b7e65804adcdcf22295bfcde75b5c))
+
 ## [0.4.0](https://github.com/yusufaf/spicetify-local-files-plus/compare/v0.3.0...v0.4.0) (2026-11-01)
 
 
