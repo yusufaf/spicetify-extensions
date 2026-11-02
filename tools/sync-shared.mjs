@@ -1,7 +1,7 @@
 // Copies each shared/<name> block verbatim into the matching marked region of every
 // extension file, so the shipped files stay single-file with no build step.
 // `--check` writes nothing and exits 1 if any region differs from its shared source.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -26,7 +26,7 @@ export function replaceRegion(source, name, block) {
     if (line.trim() === startMarker(name)) starts.push(i);
     else if (line.trim() === endMarker(name)) ends.push(i);
   });
-  if (starts.length === 0) throw new Error(`no start marker for shared/${name}`);
+  if (starts.length === 0) throw new Error(`no start marker for shared/${name}; expected the line "${startMarker(name)}"`);
   if (starts.length > 1) throw new Error(`${starts.length} start markers for shared/${name}`);
   const start = starts[0];
   if (ends.some((i) => i < start)) throw new Error(`end marker before the start marker for shared/${name}`);
@@ -51,7 +51,8 @@ function main() {
   const root = join(dirname(fileURLToPath(import.meta.url)), '..');
   const check = process.argv.includes('--check');
   const manifests = JSON.parse(readFileSync(join(root, 'manifest.json'), 'utf8'));
-  const blocks = new Map();
+  const sharedDir = join(root, 'shared');
+  const blocks = new Map(readdirSync(sharedDir).filter((f) => f.endsWith('.js')).map((f) => [f, readFileSync(join(sharedDir, f), 'utf8')]));
   const drifted = [];
   let failed = false;
 
@@ -60,10 +61,10 @@ function main() {
     const source = readFileSync(path, 'utf8');
     let out = source;
     try {
-      for (const name of sharedNamesIn(source)) {
-        if (!blocks.has(name)) blocks.set(name, readFileSync(join(root, 'shared', name), 'utf8'));
-        out = replaceRegion(out, name, blocks.get(name));
-      }
+      const unknown = sharedNamesIn(source).filter((name) => !blocks.has(name));
+      if (unknown.length) throw new Error(`no shared/${unknown.join(', shared/')}`);
+      // Every extension carries every shared block, so a new extension can't silently skip one.
+      for (const [name, block] of blocks) out = replaceRegion(out, name, block);
     } catch (err) {
       console.error(`${file}: ${err.message}`);
       failed = true;

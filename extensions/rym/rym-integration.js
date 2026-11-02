@@ -66,8 +66,8 @@ const EXT = {
 // @shared footer.js start — edit shared/footer.js, then run pnpm sync
 /**
  * Settings footer shared by every extension: version, Docs, More extensions and a
- * report-an-issue link. Reads the file's EXT config; class names come from
- * EXT.footerPrefix (for example "al-settings" gives .al-settings-footer).
+ * report-an-issue link. Reads the file's EXT config; class names are built from
+ * EXT.footerPrefix (`${footerPrefix}-footer`, `-footer-links`, `-version`, `-github-link`, `-github-icon`).
  */
 const SHARED_HUB_URL = 'https://spicetify.yusufaf.dev/';
 
