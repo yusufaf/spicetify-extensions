@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/yusufaf/spicetify-extensions/compare/smart-add-v0.2.0...smart-add-v0.3.0) (2026-11-13)
+
+
+### Features
+
+* **smart-add:** add a settings footer with version, docs and issue links ([68f422e](https://github.com/yusufaf/spicetify-extensions/commit/68f422e5876c40d565d623832dedd48ace0f9677))
+
 ## [0.2.0](https://github.com/yusufaf/spicetify-smart-add/compare/v0.1.0...v0.2.0) (2026-11-01)
 
 
