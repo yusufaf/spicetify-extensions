@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/yusufaf/spicetify-extensions/compare/producers-v0.2.0...producers-v0.3.0) (2026-11-13)
+
+
+### Features
+
+* **producers:** add the full settings footer with docs and issue links ([b472952](https://github.com/yusufaf/spicetify-extensions/commit/b472952a702913631a6e18f4439b86422cf08aa2))
+
 ## [0.2.0](https://github.com/yusufaf/spicetify-producers/compare/v0.1.1...v0.2.0) (2026-10-24)
 
 
