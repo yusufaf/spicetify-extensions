@@ -1,6 +1,6 @@
 // @ts-check
 // x-release-please-start-version
-// VERSION: 0.4.0
+// VERSION: 0.5.0
 // x-release-please-end-version
 //
 // Reads real tag metadata (artist, album artist, year, genre, bitrate/quality, and
@@ -88,7 +88,7 @@
     name: "Local Files+",
     slug: "local-files-plus",
     // x-release-please-start-version
-    version: "0.4.0",
+    version: "0.5.0",
     // x-release-please-end-version
     footerPrefix: "lfp-settings",
   };
